@@ -8,14 +8,13 @@ from .serializers import SongSerializer
 # Create your views here.
 
 @api_view(['GET', 'POST'])
-def api_note(request, song_id):
-    try:
-        song = Song.objects.get(id=song_id)
-    except Song.DoesNotExist:
-        raise Http404()
+def api_note(request):
+    
+
 
     if request.method == 'POST':
-        song.song_id = song_id
+        song = Song()
+        song.song_id = int(request.data.song_id)
         song.save()
 
 
