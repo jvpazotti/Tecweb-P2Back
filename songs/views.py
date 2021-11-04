@@ -14,8 +14,10 @@ def api_note(request):
 
     if request.method == 'POST':
         song = Song()
-        song.song_id = int(request.data.song_id)
+        print(request.data)
+        song.song_id = int(request.data['song_id'])
         song.save()
+        print("PASSOUUU")
 
 
     serialized_song = SongSerializer(song)
@@ -25,14 +27,14 @@ def api_note(request):
 
 def api_note_list(request):
 
-    if request.method == "POST":
-        new_note_data = request.data
-        note = Song()
-        note.title = new_note_data["title"]
-        note.content = new_note_data["content"]
-        note.save()
+    # if request.method == "POST":
+    #     new_note_data = request.data
+    #     note = Song()
+    #     note.title = new_note_data["title"]
+    #     note.content = new_note_data["content"]
+    #     note.save()
         
-    notes= Song.objects.all()
+    songs = Song.objects.all()
 
-    serialized_notes = SongSerializer(notes,many=True)
-    return Response(serialized_notes.data)
+    serialized_songs = SongSerializer(songs, many=True)
+    return Response(serialized_songs.data)
