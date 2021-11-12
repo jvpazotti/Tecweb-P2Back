@@ -8,7 +8,7 @@ from .serializers import SongSerializer
 # Create your views here.
 
 @api_view(['GET', 'POST'])
-def api_note(request):
+def fav_song(request):
     
 
 
@@ -25,7 +25,7 @@ def api_note(request):
 
 @api_view(['GET','POST'])
 
-def api_note_list(request):
+def fav_list(request):
 
     # if request.method == "POST":
     #     new_note_data = request.data
@@ -38,3 +38,18 @@ def api_note_list(request):
 
     serialized_songs = SongSerializer(songs, many=True)
     return Response(serialized_songs.data)
+
+@api_view(['GET','POST','DELETE'])
+
+def delete_fav(request):
+
+    print(request.data)
+    if request.method == 'POST':
+        id = int(request.data['id'])
+        song = Song.objects.get(id=id)
+        song.delete()
+        all_songs = Song.objects.all()
+        serialized_song = SongSerializer(all_songs, many=True)
+    return Response(serialized_song.data)
+
+

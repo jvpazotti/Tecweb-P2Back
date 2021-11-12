@@ -10,6 +10,7 @@ urlpatterns = [
     #path('all_tags',views.all_tags,name='all_tags'),
     #path('api/notes/<int:note_id>/', views.api_note),
     #path('', views.api_note),
-    path('', views.api_note),
-    path('favoritesBack', views.api_note_list)
+    path('', views.fav_song),
+    path('favoritesBack', views.fav_list),
+    path('del', views.delete_fav)
 ]
