@@ -18,9 +18,8 @@ def fav_song(request):
         song.song_id = int(request.data['song_id'])
         song.save()
         print("PASSOUUU")
-
-
-    serialized_song = SongSerializer(song)
+        serialized_song = SongSerializer(song)
+        
     return Response(serialized_song.data)
 
 @api_view(['GET','POST'])
