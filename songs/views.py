@@ -10,10 +10,10 @@ from .serializers import SongSerializer
 @api_view(['GET', 'POST'])
 def fav_song(request):
     
-
+    song = Song()
 
     if request.method == 'POST':
-        song = Song()
+        # song = Song()
         print(request.data)
         song.song_id = int(request.data['song_id'])
         song.save()
