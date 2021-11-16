@@ -34,21 +34,23 @@ def fav_list(request):
 @api_view(['GET','POST'])
 def unfav(request):
 
-    id = int(request.data['id'])
-    all_songs = Song.objects.all()
-    for song in all_songs:
-        if song.song_id == id:
-            song.delete()
-    serialized_song = SongSerializer(all_songs, many=True)
+    if request.method == 'POST':
+        id = int(request.data['id'])
+        all_songs = Song.objects.all()
+        for song in all_songs:
+            if song.song_id == id:
+                song.delete()
+        serialized_song = SongSerializer(all_songs, many=True)
     return Response(serialized_song.data)
 
 
 @api_view(['GET','POST'])
 def delete_fav(request):
 
-    id = int(request.data['id'])
-    song = Song.objects.get(id=id)
-    song.delete()
-    all_songs = Song.objects.all()
-    serialized_song = SongSerializer(all_songs, many=True)
+    if request.method == 'POST':
+        id = int(request.data['id'])
+        song = Song.objects.get(id=id)
+        song.delete()
+        all_songs = Song.objects.all()
+        serialized_song = SongSerializer(all_songs, many=True)
     return Response(serialized_song.data)
