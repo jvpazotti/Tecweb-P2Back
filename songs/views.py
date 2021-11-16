@@ -35,9 +35,10 @@ def fav_list(request):
 def unfav(request):
 
     id = int(request.data['id'])
-    song = Song.objects.get(song_id=id)
-    song.delete()
     all_songs = Song.objects.all()
+    for song in all_songs:
+        if song.song_id == id:
+            song.delete()
     serialized_song = SongSerializer(all_songs, many=True)
     return Response(serialized_song.data)
 
