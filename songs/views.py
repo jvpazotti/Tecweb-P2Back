@@ -32,6 +32,17 @@ def fav_list(request):
 
 
 @api_view(['GET','POST'])
+def unfav(request):
+
+    id = int(request.data['id'])
+    song = Song.objects.get(song_id=id)
+    song.delete()
+    all_songs = Song.objects.all()
+    serialized_song = SongSerializer(all_songs, many=True)
+    return Response(serialized_song.data)
+
+
+@api_view(['GET','POST'])
 def delete_fav(request):
 
     id = int(request.data['id'])
